@@ -1,0 +1,23 @@
+<body>
+<script src="bundle.js"></script>
+<script>
+  (function() {
+    var solve = require('/solve.js');
+
+    var hard = [ '6  2   3 ',
+                 ' 2  7   8',
+                 '  9  4   ',
+                 ' 6    3  ',
+                 '8       1',
+                 '  7    4 ',
+                 '   6  9  ',
+                 '4   3  2 ',
+                 ' 7   9  5' ];
+    var board = hard.map(function(s) { return s.split('').map(Number) });
+
+    console.profile('solve');
+    console.log(solve(board));
+    console.profileEnd('solve');
+  })();
+</script>
+</body>
