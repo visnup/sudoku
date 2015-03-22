@@ -12,6 +12,7 @@ var hard = [ '6  2   3 ',
 var board = hard.map(function(s) { return s.split('').map(Number) });
 var numbers = _.shuffle(_.range(1, 10));
 
+// recursively try guesses until the board is full
 console.log((function solve(board, cell) {
   if (!cell) return board;
 
@@ -26,14 +27,18 @@ console.log((function solve(board, cell) {
   }
 })(board, next(board)));
 
+// the already taken values for a given cell
 function taken(board, r, c) {
   var br = Math.floor(r/3)*3, bc = Math.floor(c/3)*3;
   var row = board[r],
       col = _.pluck(board, c),
-      box = board.slice(br, br+3).map(function(r) { return r.slice(bc, bc+3) });
+      box = _.map(_.slice(board, br, br+3), function(r) {
+        return _.slice(r, bc, bc+3)
+      });
   return row.concat(col, box[0], box[1], box[2]);
 }
 
+// the next cell to try, based on least number of possible guesses
 function next(board) {
   var cell, least = 10;
   _.forEach(board, function(row, r) {
